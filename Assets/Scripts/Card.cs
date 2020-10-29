@@ -2,17 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Card : MonoBehaviour
+public abstract class Card
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public string Name { get; protected set; } = "...";
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public abstract void Play();
 }

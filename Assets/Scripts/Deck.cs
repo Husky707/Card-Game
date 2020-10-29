@@ -2,7 +2,7 @@
 using System;
 
 public enum DeckPosition { Top, Bottom, Random}
-public class Deck <T>
+public class Deck <T> where T : Card
 {
 
     List<T> _cards = new List<T>();
@@ -26,6 +26,28 @@ public class Deck <T>
         }
     }
 
+    public T GetCard(int atindex)
+    {
+        if (!IndexInRange(atindex) || _cards[atindex] == null)
+            return default;
+
+        return _cards[atindex];
+    }
+
+    public T Draw(DeckPosition fromPos = DeckPosition.Top)
+    {
+        if(IsEmpty)
+        {
+            UnityEngine.Debug.LogWarning("Deck is empty.");
+            return default;
+        }
+
+        int targeti = GetIndexFromPosistion(fromPos);
+        T removedCard = _cards[targeti];
+        Remove(targeti);
+
+        return removedCard;
+    }
 
     public void Add(T card, DeckPosition atPos = DeckPosition.Top)
     {
@@ -52,6 +74,51 @@ public class Deck <T>
         }
     }
 
+    public void Remove(int atIndex)
+    {
+        if(IsEmpty)
+        {
+            UnityEngine.Debug.LogWarning("Cannot remove a card from empty deck.");
+            return;
+        }
+        else if(!IndexInRange(atIndex))
+        {
+            UnityEngine.Debug.LogWarning("Cannot remove card from deck. Index out of bounds.");
+            return;
+        }
+
+        T removedCard = _cards[atIndex];
+        _cards.RemoveAt(atIndex);
+
+        CardRemoved.Invoke(removedCard);
+
+        if (_cards.Count == 0)
+            Emptied.Invoke();
+
+    }
+
+    public void ShuffleDeck()
+    {
+        for(int i = Count - 1; i > 0; i--)
+        {
+            int randi = UnityEngine.Random.Range(0, i + 1);
+            T randCard = _cards[randi];
+
+            _cards[randi] = _cards[i];
+            _cards[i] = randCard;
+        }
+    }
+
+    #region Helpers
+    private bool IndexInRange(int indexCheck)
+    {
+        if(_cards.Count > indexCheck && indexCheck >= 0)
+            return true;
+
+        UnityEngine.Debug.LogWarning("Index " + indexCheck + " out side of list range(" + _cards.Count + ")");
+        return false;
+    }
+
     private int GetIndexFromPosistion(DeckPosition position)
     {
         if (Count == 0)
@@ -71,4 +138,5 @@ public class Deck <T>
             default: UnityEngine.Debug.Log("Couldn't find deck position"); return -1;
         }
     }
+    #endregion
 }
