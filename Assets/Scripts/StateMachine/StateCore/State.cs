@@ -7,7 +7,15 @@ public abstract class State : MonoBehaviour
     public event Action Exited = delegate { };
     
 
-    public virtual void Enter() { }
-    public virtual void Exit() { }
+    public virtual void Enter() 
+    {
+        //Call base after custom logic
+        Entered.Invoke();
+    }
+    public virtual void Exit() 
+    {
+        //Call base after your logic
+        Exited.Invoke();
+    }
     public virtual void Tick() { }
 }

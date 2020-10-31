@@ -54,8 +54,16 @@ public abstract class StateMachine : MonoBehaviour
         InTransition = true;
         queuedState = toState;
 
-        _currentState.Exited += OnStateExited;
-        _currentState.Exit();
+        if(_currentState == null)
+        {
+            //Case for entering the very first state
+            EnterNewState(toState);
+        }
+        else
+        {
+            _currentState.Exited += OnStateExited;
+            _currentState.Exit();
+        }
     }
 
     private void OnStateExited( )
@@ -71,6 +79,7 @@ public abstract class StateMachine : MonoBehaviour
     {
         _currentState = queuedState;
         queuedState.Entered -= OnStateEntered;
+        queuedState = null;
 
         InTransition = false;
     }

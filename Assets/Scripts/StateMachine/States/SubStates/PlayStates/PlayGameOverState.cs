@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameSetupState : CardGameState
+public class PlayGameOverState : PlayState
 {
 
 
