@@ -6,7 +6,7 @@ public class CardGameSM : StateMachine
 {
     void Start()
     {
-        
+        ChangeState<MainMenueState>();
     }
 
 
