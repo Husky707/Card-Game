@@ -4,15 +4,21 @@ using UnityEngine;
 
 public class PlayGameState : CardGameState
 {
-    // Start is called before the first frame update
-    void Start()
+
+    [SerializeField] PlayGameSM NestedStateMachine = null;
+
+    public override void Enter()
     {
-        
+        NestedStateMachine?.ActivateMachine();
+        NestedStateMachine?.ResumeMachine();
+
+        base.Enter();
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void Exit()
     {
-        
+        NestedStateMachine?.PauseMachine();
+
+        base.Exit();
     }
 }

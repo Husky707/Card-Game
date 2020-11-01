@@ -2,8 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayGameSM : StateMachine
+public class PlayGameSM : NestedStateMachine
 {
+
+
+    protected override void OnMachineActivated()
+    {
+        ChangeState<PlaySetupState>();
+    }
+
 
 
 }

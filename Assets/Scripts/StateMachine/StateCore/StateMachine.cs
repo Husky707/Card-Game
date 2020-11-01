@@ -9,7 +9,7 @@ public abstract class StateMachine : MonoBehaviour
     protected State previousState;
     private State queuedState;
 
-    private void Update()
+    protected virtual void Update()
     {
         if(CurrentState != null && !InTransition)
         {
@@ -41,6 +41,9 @@ public abstract class StateMachine : MonoBehaviour
         BeginStateChange(previousState);
     }
 
+
+
+    #region Methods
     private void BeginStateChange(State toState)
     {
         if(_currentState != toState && !InTransition)
@@ -96,5 +99,5 @@ public abstract class StateMachine : MonoBehaviour
         state.Entered += OnStateEntered;
         state.Enter();
     }
-  
+    #endregion
 }

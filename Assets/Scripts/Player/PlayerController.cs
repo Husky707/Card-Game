@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour
     {
         if(mouseState == eInputStates.Down)
         {
-            ITargetable possibleTarget = GetMouseTarget().GetComponent<ITargetable>();
+            ITargetable possibleTarget = GetMouseTarget()?.GetComponent<ITargetable>();
             if(possibleTarget != null)
             {
                 Targeter.AquireTarget(possibleTarget);
