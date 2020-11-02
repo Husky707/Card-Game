@@ -32,6 +32,10 @@ public abstract class StateMachine : MonoBehaviour
     {
         ChangeState<T>(this.gameObject);
     }
+    public void ChangeState(State toState)
+    {
+        BeginStateChange(toState);
+    }
 
     public void RevertState()
     {
