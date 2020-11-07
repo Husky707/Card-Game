@@ -4,17 +4,14 @@ using System.Collections.Generic;
 
 using UnityEngine;
 
-public enum eInputStates { Down, Up, Held, Noone}
-public enum eComboKeys { Undo }
-public class InputController : MonoBehaviour
+
+public class InputController : InputBase
 {
     public event Action<eInputStates> LeftMouse = delegate { };
     public event Action<eInputStates> RightMouse = delegate { };
     public event Action<eInputStates> Undo = delegate { };
     public event Action<eInputStates> Esc = delegate { };
     public event Action<eInputStates> Enter = delegate { };
-
-    [SerializeField] bool isReadingInput = true;
 
     Dictionary<eComboKeys, Dictionary<KeyCode, eInputStates> > keyCombos = new Dictionary<eComboKeys, Dictionary<KeyCode, eInputStates> >();
 
@@ -57,25 +54,14 @@ public class InputController : MonoBehaviour
 
     #endregion
 
-    void Update()
-    {
-        if (!isReadingInput)
-            return;
 
+    protected override void ReadInput()
+    {
         GetMouseInput();
         GetKeyInput();
         GetComboInput();
     }
 
-    public void LockInput()
-    {
-        SetInputLock(false);
-    }
-
-    public void UnlockInput()
-    {
-        SetInputLock(true);
-    }
 
 
     #region Read Input
@@ -160,11 +146,6 @@ public class InputController : MonoBehaviour
     #endregion
 
     #region Helpers
-
-    void SetInputLock(bool toState)
-    {
-        isReadingInput = toState;
-    }
 
     eInputStates GetComboState(List<eInputStates> currentStates)
     {

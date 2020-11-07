@@ -6,7 +6,7 @@ public class CommandCenter
     private Stack<ICommandable> CommandHistory = new Stack<ICommandable>();
     private Stack<ICommandable> UndoHistory = new Stack<ICommandable>(0);
 
-    public void ExecuteCommand(ICommandable command)
+    public void Execute(ICommandable command)
     {
         CommandHistory.Push(command);
         command.Execute();
@@ -14,7 +14,7 @@ public class CommandCenter
         ClearUndoHistory();
     }
 
-    public void UndoCommand()
+    public void Undo()
     {
         if (CommandHistory.Count <= 0)
         {
@@ -28,7 +28,7 @@ public class CommandCenter
         undoneCommand.Undo();
     }
 
-    public void RedoCommand()
+    public void Redo()
     {
         if(UndoHistory.Count <= 0)
         {

@@ -18,4 +18,8 @@ public abstract class State : MonoBehaviour
         Exited.Invoke();
     }
     public virtual void Tick() { }
+
+    public virtual void Pause() { }
+
+    public virtual void Resume() { }
 }
