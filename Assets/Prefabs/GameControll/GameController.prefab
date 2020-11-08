@@ -40,6 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4267082109800809507}
+  - component: {fileID: 5077714088927138478}
   - component: {fileID: 4267082109800809519}
   - component: {fileID: 4267082109800809518}
   - component: {fileID: 4267082109800809505}
@@ -65,6 +66,23 @@ Transform:
   m_Father: {fileID: 4267082110613063671}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5077714088927138478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4267082109800809506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 791a13071b6d1c84584609dc75302ff9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dayTimeText: {fileID: 0}
+  DaySM: {fileID: 4267082109800809519}
+  Dawn: {fileID: 4267082109800809518}
+  Daylight: {fileID: 4267082109800809505}
+  Dusk: {fileID: 4267082109800809504}
 --- !u!114 &4267082109800809519
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89,6 +107,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00f34a2eb3fbbef4aa62d37fe7bfbc5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DawnUI: {fileID: 0}
+  endDawnButton: {fileID: 0}
 --- !u!114 &4267082109800809505
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -171,6 +191,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1b1f9c3cc2973048b331de122f7abe9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  NestedStateMachine: {fileID: 0}
 --- !u!114 &4267082110120159593
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -183,6 +204,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0e6f90d066472e4a96d9fba69fb194e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MenuCanvas: {fileID: 0}
 --- !u!1 &4267082110613063670
 GameObject:
   m_ObjectHideFlags: 0
@@ -254,6 +276,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8aaf7e3179ac9b34e9a8534ef07d1c4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GameOverScreen: {fileID: 0}
+  quitButton: {fileID: 0}
 --- !u!114 &4267082110613063668
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -266,6 +290,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 469866b635b675a45aaf4edd1cac3b16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GameCanvas: {fileID: 0}
+  fieldBuilder: {fileID: 0}
 --- !u!1 &4267082110628318090
 GameObject:
   m_ObjectHideFlags: 0

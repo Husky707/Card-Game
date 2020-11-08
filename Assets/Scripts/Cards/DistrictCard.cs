@@ -6,6 +6,7 @@ public class DistrictCard : Card
 {
     public Sprite Img { get; private set; } = null;
     public CardPlayEffect PlayEffect { get; private set; } = null;
+    public string Discription { get; private set; }
 
     public DistrictCard(DistrictCardData data)
     {

@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] Camera playerCamera = null;
+    public Deck<DistrictCard> playerHand = null;
 
     InputController Input;
     TargetController Targeter;

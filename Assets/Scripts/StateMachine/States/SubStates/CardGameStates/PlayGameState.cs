@@ -9,16 +9,17 @@ public class PlayGameState : CardGameState
 
     public override void Enter()
     {
+
         NestedStateMachine?.ActivateMachine();
         NestedStateMachine?.ResumeMachine();
 
+        //Not reaching?
         base.Enter();
     }
 
     public override void Exit()
     {
         NestedStateMachine?.PauseMachine();
-
         base.Exit();
     }
 }

@@ -2,10 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System;
 using UnityEngine.UI;
 
+public enum ePlayers {  player, ai }
 public class GameController : MonoBehaviour
 {
+    public event Action GameOverEvent = delegate { };
+
     public static CommandCenter GameCommander = new CommandCenter();
     public static GameController Game = null;
     public static MasterInput GameInput;
@@ -25,6 +29,12 @@ public class GameController : MonoBehaviour
     #endregion
 
     #region Public Methods
+
+    public void GameOver(ePlayers winner)
+    {
+        GameOverEvent.Invoke();
+    }
+
     public void QuitGame()
     {
         if (Application.isEditor)

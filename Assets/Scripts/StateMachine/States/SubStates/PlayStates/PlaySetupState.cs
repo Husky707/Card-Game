@@ -6,6 +6,12 @@ using UnityEngine;
 public class PlaySetupState : PlayState
 {
     [SerializeField] GameObject GameCanvas = null;
+    [SerializeField] FieldBuilder fieldBuilder = null;
+    [SerializeField] Deck<DistrictCard> playerDeck = null;
+
+    [Header("Cards for deck")]
+    [SerializeField] DistrictCard[] cards = null;
+
     public override void Enter()
     {
         SetUpGame();
@@ -18,11 +24,22 @@ public class PlaySetupState : PlayState
     private void SetUpGame()
     {
         GameCanvas?.SetActive(true);
-        CreateDecks();
+        //fieldBuilder?.GenerateField();
+
+
+        //CreateDecks();
     }
 
     private void CreateDecks()
     {
-        throw new NotImplementedException();
+        foreach (DistrictCard card in cards)
+        {
+            playerDeck.Add(card);
+            playerDeck.Add(card);
+            playerDeck.Add(card);
+            playerDeck.Add(card);
+        }
+
+        playerDeck.ShuffleDeck();
     }
 }
