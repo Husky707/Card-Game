@@ -13,13 +13,13 @@ public class DistrictCard : Card
         Name = data.Name;
         Img = data.Graphic;
         PlayEffect = data.PlayEffect;
-
+        Discription = data.Description;
     }
 
     public override void Play()
     {
-        Debug.Log("Player ability card " + Name);
+        Debug.Log("Played ability card " + Name);
         ITargetable target = TargetController.CurrnetTarget;
-        PlayEffect.Activate(target);
+        PlayEffect?.Activate(target);
     }
 }

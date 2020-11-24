@@ -22,13 +22,22 @@ public class DaytimeController : MonoBehaviour
     private eDayStates _currentState = eDayStates.Dawn;
 
     #region Init
+
+    bool isInit = false;
+    private void Init()
+    {
+        if (isInit)
+            return;
+
+        isInit = true;
+        GameController.Game.GameOverEvent += OnGameOver;
+
+    }
     private void OnEnable()
     {
         Dawn.Entered += OnEnteredDawn;
         Daylight.Entered += OnEnteredDaylight;
         Dusk.Entered += OnEnteredDusk;
-
-        GameController.Game.GameOverEvent += OnGameOver;
 
         GameOverUI.SetActive(false);
     }
@@ -56,7 +65,6 @@ public class DaytimeController : MonoBehaviour
 
     private void OnEnteredDawn()
     {
-        Debug.Log("Tried to change Text)");
         dayTimeText.text = "Dawn Phase";
 
     }
@@ -64,6 +72,12 @@ public class DaytimeController : MonoBehaviour
     private void OnGameOver()
     {
         GameOverUI.SetActive(true);
+    }
+
+
+    private void Update()
+    {
+        Init();
     }
 
 }

@@ -9,10 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 190a52a466581aa4ab018db16a57a521, type: 3}
-  m_Name: GoldCard
+  m_Script: {fileID: 11500000, guid: 14a5f9538fa04674784d0427bd0a6e19, type: 3}
+  m_Name: GainGold
   m_EditorClassIdentifier: 
-  _name: Gold Card
-  _description: Play to gain 2 gold
-  _graphic: {fileID: 0}
-  _playEffect: {fileID: 0}
+  goldAmount: 2

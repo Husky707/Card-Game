@@ -2,10 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(HandDisplay))]
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] Camera playerCamera = null;
-    public Deck<DistrictCard> playerHand = null;
+    [SerializeField] DaylightState daylightRules = null;
+    [SerializeField] BankController bank = null;
+    public Deck<Card> playerHand = new Deck<Card>();
+    private HandDisplay handDisplay = null;
 
     InputController Input;
     TargetController Targeter;
@@ -15,19 +19,23 @@ public class PlayerController : MonoBehaviour
     {
         Input = gameObject.AddComponent<InputController>();
         Targeter = gameObject.AddComponent<TargetController>();
+
+        handDisplay = GetComponent<HandDisplay>();
+        handDisplay?.SetTergetDeck<Card>(playerHand);
     }
 
     private void OnEnable()
     {
         Input.Undo += OnUndo;
         Input.LeftMouse += OnLeftMouse;
+        handDisplay.PlayRequest += PlayCard;
     }
 
     private void OnDisable()
     {
         Input.Undo -= OnUndo;
         Input.LeftMouse -= OnLeftMouse;
-
+        handDisplay.PlayRequest -= PlayCard;
     }
 
     void Start()
@@ -41,7 +49,29 @@ public class PlayerController : MonoBehaviour
         
     }
 
+    public void GainGold(int amount)
+    {
+        bank.PlayerGainGold(amount);
+    }
 
+    public void StealGold(int amount)
+    {
+        bank.PlayerGainGold(amount);
+        bank.AIGainGold(-amount);
+    }
+
+    private void PlayCard(Card target)
+    {
+        if (!daylightRules.IsActiveState || daylightRules.CurrentTurn != eTurn.player)
+        {
+            Debug.Log("Not a valid time to play this card");
+            return;
+        }
+
+        playerHand.Remove(target);
+        target.Play();
+        daylightRules.EndPlayerTurn();
+    }
 
     GameObject GetMouseTarget()
     {

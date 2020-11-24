@@ -108,4 +108,24 @@ public class DaylightState : DayState
         OnEnter();
         base.Enter();
     }
+
+    private void PlayerGainedGold(ePlayers target, int total)
+    {
+        if (total >= Bank.GoldToWin)
+        {
+            Debug.Log(target.ToString() + " wins!");
+            GameController.Game.GameOver(target);
+        }
+    }
+
+    private void OnEnable()
+    {
+        Bank.GoldTotalChanged += PlayerGainedGold;
+    }
+
+    private void OnDisable()
+    {
+        Bank.GoldTotalChanged -= PlayerGainedGold;
+
+    }
 }
