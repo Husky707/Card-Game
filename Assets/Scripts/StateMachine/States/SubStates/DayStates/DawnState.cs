@@ -1,48 +1,90 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
+using System.Collections.Generic;
 
 public class DawnState : DayState
 {
+
     [SerializeField] GameObject DawnUI = null;
     [SerializeField] Button endDawnButton = null;
 
+    [SerializeField] PlayerController player = null;
+    [SerializeField] List<DistrictCardData> availableCards = new List<DistrictCardData>();
+    [SerializeField] AudioClip soundBite = null;
+
     #region Init
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         DawnUI.SetActive(false);
+
     }
     private void OnEnable()
     {
-        endDawnButton?.onClick.AddListener(EndDawn);
+        endDawnButton?.onClick.AddListener(EndDawnState);
+
     }
 
     private void OnDisable()
     {
-        endDawnButton?.onClick.RemoveListener(EndDawn);
+        endDawnButton?.onClick.RemoveListener(EndDawnState);
     }
 
     #endregion
 
-    /// <summary>
-    /// /Needs to be the other way around!!1
-    /// </summary>
-    public void EndDawn()
+
+    public void EndDawnState()
     {
-        DawnUI.SetActive(false);
+        ChangeStateCommand<DaylightState, DawnState> stateChange = new ChangeStateCommand<DaylightState, DawnState>(StateMachine);
+        stateChange.Execute();
         Exit();
     }
+
+    private void OnEndDawn()
+    {
+        DawnUI.SetActive(false);
+    }
     
-    public void BeginDawn()
+    private void OnBeginDawn()
     {
         DawnUI.SetActive(true);
-        Enter();
+
+        player.playerHand.Add(new DistrictCard(GetRandomCard()));
+        player.playerHand.Add(new DistrictCard(GetRandomCard()));
+        player.playerHand.Add(new DistrictCard(GetRandomCard()));
+        AudioSource sound = FindObjectOfType<AudioSource>();
+        sound?.PlayOneShot(soundBite);
+    }
+
+    private DistrictCardData GetRandomCard()
+    {
+        return availableCards[UnityEngine.Random.Range(0, availableCards.Count)];
     }
 
     public override void Exit()
     {
-        ChangeStateCommand<DaylightState, DawnState> stateChange = new ChangeStateCommand<DaylightState, DawnState>(StateMachine, true);
+        OnEndDawn();
+
         base.Exit();
     }
 
+    public override void Enter()
+    {
+        OnBeginDawn();
 
+        base.Enter();
+    }
+
+    float waitCount = 0f;
+    public override void Tick()
+    {
+        base.Tick();
+        waitCount += Time.deltaTime;
+        if(waitCount >= 3f)
+        {
+            waitCount = 0;
+            EndDawnState();
+        }
+    }
 }

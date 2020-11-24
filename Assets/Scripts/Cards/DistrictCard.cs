@@ -6,19 +6,20 @@ public class DistrictCard : Card
 {
     public Sprite Img { get; private set; } = null;
     public CardPlayEffect PlayEffect { get; private set; } = null;
+    public string Discription { get; private set; }
 
     public DistrictCard(DistrictCardData data)
     {
         Name = data.Name;
         Img = data.Graphic;
         PlayEffect = data.PlayEffect;
-
+        Discription = data.Description;
     }
 
     public override void Play()
     {
-        Debug.Log("Player ability card " + Name);
+        Debug.Log("Played ability card " + Name);
         ITargetable target = TargetController.CurrnetTarget;
-        PlayEffect.Activate(target);
+        PlayEffect?.Activate(target);
     }
 }

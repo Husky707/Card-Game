@@ -74,6 +74,11 @@ public class Deck <T> where T : Card
         }
     }
 
+
+    public void Remove(T target)
+    {
+        Remove(GetIndexOfTarget(target));
+    }
     public void Remove(int atIndex)
     {
         if(IsEmpty)
@@ -137,6 +142,23 @@ public class Deck <T> where T : Card
 
             default: UnityEngine.Debug.Log("Couldn't find deck position"); return -1;
         }
+    }
+
+    private int GetIndexOfTarget(T target)
+    {
+        if (Count == 0)
+            return 0;
+
+        if (target == null)
+            return 0;
+
+        if (!_cards.Contains(target))
+        {
+            UnityEngine.Debug.Log("Deck does not contain the targeted card");
+            return -1;
+        }
+
+        return _cards.IndexOf(target);
     }
     #endregion
 }

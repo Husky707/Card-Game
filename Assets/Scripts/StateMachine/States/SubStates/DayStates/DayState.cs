@@ -8,8 +8,10 @@ public class DayState : State
 
     protected DaySM StateMachine { get; private set; }
 
-    private void Awake()
+    protected virtual void Awake()
     {
         StateMachine = GetComponent<DaySM>();
+        if (StateMachine == null)
+            Debug.Log("Could not find a valid state machine for DayState");
     }
 }

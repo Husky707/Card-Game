@@ -7,7 +7,6 @@ public class DaySM : NestedStateMachine
     protected override void OnMachineActivated()
     {
         base.OnMachineActivated();
-
         ChangeState<DawnState>();
     }
 
